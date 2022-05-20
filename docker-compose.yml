@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: app
+      target: build-development
+    command: ./manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/src
+    # todo check this parameter
+    init: true
+    environment:
+      DJANGO_SETTINGS_MODULE: "project.settings.local"
+      DB_HOST: "${DB_HOST?DB_HOST}"
+      DB_PORT: "${DB_PORT?DB_PORT}"
+      DB_NAME: "${DB_NAME?DB_NAME}"
+      DB_USER: "${DB_USER?DB_USER}"
+      DB_PASS: "${DB_PASS?DB_PASS}"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: "${DB_NAME?DB_NAME}"
+      POSTGRES_USER: "${DB_USER?DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASS?DB_PASS}"
