@@ -2,6 +2,7 @@ django
 django-filter
 django-cors-headers
 django-extensions
+django-summernote
 psycopg2-binary
 djangorestframework
 drf-spectacular

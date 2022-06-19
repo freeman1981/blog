@@ -5,7 +5,7 @@ from .serializers import CommentSerializer, PostSerializer, TagSerializer
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.order_by('-modified')
     serializer_class = PostSerializer
 
 
